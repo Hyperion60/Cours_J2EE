@@ -1,6 +1,7 @@
 package com.rioc.cours_j2ee.controllers;
 
 
+import com.google.gson.Gson;
 import com.rioc.cours_j2ee.exceptions.ApiException;
 import com.rioc.cours_j2ee.models.dao.Account;
 import com.rioc.cours_j2ee.services.account.IAccountService;
@@ -25,6 +26,7 @@ public class AccountController {
         } catch (Exception e) {
             throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return account.toString();
+
+        return new Gson().toJson(account);
     }
 }
