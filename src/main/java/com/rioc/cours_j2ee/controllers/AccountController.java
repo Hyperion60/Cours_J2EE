@@ -17,6 +17,10 @@ public class AccountController {
         this.service = service;
     }
 
+    /**
+     * @param account Compte utilisateur récupéré dans le corps de la requête POST
+     * @return Retourne le compte utilisateur nouvellement créé
+     */
     @PostMapping("/accounts")
     public String addNewAccount(
             @RequestBody Account account
