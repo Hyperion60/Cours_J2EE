@@ -17,7 +17,7 @@ public class AccountService implements IAccountService {
         this.repository = repository;
     }
 
-    public Account postAccount(Account account) throws Exception {
+    public Account postAccounts(Account account) throws Exception {
         if (repository.existsById(account.getAccountId())) {
             throw new Exception("Invalid ID");
         }
@@ -36,7 +36,7 @@ public class AccountService implements IAccountService {
         return repository.save(account);
     }
 
-    public Account patchAccount(Account account) throws Exception {
+    public Account patchAccounts(Account account) throws Exception {
         if (account.getAccountId() == 0) {
             throw new Exception("Invalid ID");
         }
@@ -57,13 +57,13 @@ public class AccountService implements IAccountService {
      * @return Retourne le compte modifié ou ajouté, retourne null sinon
      * @throws Exception Exception concernant un ID invalide
      */
-    public Account patchAccount(Account account, boolean creation) throws Exception {
+    public Account patchAccounts(Account account, boolean creation) throws Exception {
         if (!creation) {
-            return patchAccount(account);
+            return patchAccounts(account);
         }
-        Account ret = patchAccount(account);
+        Account ret = patchAccounts(account);
         if (ret == null) {
-            return postAccount(account);
+            return postAccounts(account);
         }
         return ret;
     }
@@ -78,5 +78,36 @@ public class AccountService implements IAccountService {
             return account.get();
         }
         throw new Exception("Invalid ID");
+    }
+
+    public Account patchAccount(Account data, Integer pk) throws Exception {
+        Optional<Account> account_obj = repository.findById(pk);
+        if (account_obj.isPresent()) {
+            // Test s'il y a des modifications
+            if (data.getLastName().equals(account_obj.get().getLastName()) &&
+                data.getFirstName().equals(account_obj.get().getFirstName())
+            ) {
+                return account_obj.get();
+            }
+
+            Account account = account_obj.get();
+            // Copy des nouvelles données sans sauvegarder
+            if (data.getFirstName().length() != 0) {
+                account.setFirstName(data.getFirstName());
+            }
+            if (data.getLastName().length() != 0) {
+                account.setLastName(data.getLastName());
+            }
+
+            // Vérification s'il n'y a pas de compte déjà existant
+            if (!repository.findByFirstNameAndLastName(
+                    account.getFirstName(),
+                    account.getLastName()
+            ).isEmpty()) {
+                throw new Exception("User already exists");
+            }
+            return repository.save(account);
+        }
+        throw new Exception("User not found");
     }
 }

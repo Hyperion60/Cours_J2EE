@@ -28,7 +28,7 @@ public class AccountController {
             @RequestBody Account account
     ) {
         try {
-            service.postAccount(account);
+            service.postAccounts(account);
         } catch (Exception e) {
             throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
@@ -42,7 +42,7 @@ public class AccountController {
     ) {
         for (Account account:accounts) {
             try {
-                service.patchAccount(account, true);
+                service.patchAccounts(account, true);
             } catch (Exception e) {
                 throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
             }
@@ -68,10 +68,18 @@ public class AccountController {
     }
 
     @GetMapping("/account/{pk}")
-    public String getAccount(
-            @PathVariable("pk") Integer pk) {
+    public String getAccount(@PathVariable("pk") Integer pk) {
         try {
             return new Gson().toJson(service.getAccount(pk));
+        } catch (Exception e) {
+            throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PatchMapping("/account/{pk}")
+    public String patchAccount(@PathVariable("pk") Integer pk, @RequestBody Account data) {
+        try {
+            return new Gson().toJson(service.patchAccount(data, pk));
         } catch (Exception e) {
             throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
