@@ -101,4 +101,21 @@ public class AccountController {
         List<Account> accounts = service.getVarAccount(firstName, lastName);
         return new Gson().toJson(accounts);
     }
+
+    @DeleteMapping("/account")
+    public String delVarAccount(@RequestParam(value = "firstName", required = false) String firstName,
+                                @RequestParam(value = "lastName", required = false) String lastName) {
+        if (firstName == null && lastName == null) {
+            throw new ApiException("Missing parameters", HttpStatus.NOT_ACCEPTABLE);
+        }
+        List<Account> accounts = service.getVarAccount(firstName, lastName);
+        for (Account account: accounts) {
+            try {
+                service.deleteAccount(account.getAccountId());
+            } catch (Exception e) {
+                throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        return "{\"message\": \"Deletion success\"}";
+    }
 }

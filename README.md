@@ -14,9 +14,9 @@ Cours d'application Java à Unilasalle Amiens
     - [X] PATCH => Mise à jour des objets
     - [X] GET => Affichage de l'objet
     - [X] DELETE => Suppression de l'objet
-  - [ ] `/accounts?{variable}={valeur}` (filter)
-    - [ ] POST => Méthode non autorisée
-    - [ ] PATCH => Mise à jour avec les données dans la requête
+  - [X] `/accounts?{variable}={valeur}` (filter)
+    - [X] POST => Méthode non autorisée
+    - [X] PATCH => Mise à jour avec les données dans la requête
     - [X] GET => Affichage des objets correspondant
     - [X] DELETE => Suppression des objets correspondant
 - [ ] Address
@@ -29,4 +29,4 @@ Cours d'application Java à Unilasalle Amiens
   - [ ] Liaison One-to-Many avec `accounts`
   - [ ] Vérification du format de l'IBAN
 
-Avancement : 12/25
+Avancement : 15/25
