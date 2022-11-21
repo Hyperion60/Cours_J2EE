@@ -110,4 +110,23 @@ public class AccountService implements IAccountService {
         }
         throw new Exception("User not found");
     }
+
+    public boolean deleteAccount(Integer pk) throws Exception {
+        Optional<Account> account = repository.findById(pk);
+        if (account.isPresent()) {
+            repository.delete(account.get());
+            return true;
+        }
+        throw new Exception("User not found");
+    }
+
+    public List<Account> getVarAccount(String firstName, String lastName) {
+        if (firstName != null && lastName != null) {
+            return repository.findByFirstNameAndLastName(firstName, lastName);
+        }
+        if (firstName != null) {
+            return repository.findByFirstName(firstName);
+        }
+        return repository.findByLastName(lastName);
+    }
 }

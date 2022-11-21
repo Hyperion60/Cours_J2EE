@@ -11,4 +11,8 @@ import java.util.List;
 public interface IAccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findByFirstNameAndLastName(@Param(value = "firstName") String firstName,
                                              @Param(value = "lastName") String lastName);
+
+    List<Account> findByFirstName(@Param(value = "firstName") String firstName);
+
+    List<Account> findByLastName(@Param(value = "lastName") String lastName);
 }

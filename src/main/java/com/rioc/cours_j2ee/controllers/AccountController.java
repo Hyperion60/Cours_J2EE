@@ -84,4 +84,21 @@ public class AccountController {
             throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @DeleteMapping("/account/{pk}")
+    public String deleteAccount(@PathVariable("pk") Integer pk) {
+        try {
+            service.deleteAccount(pk);
+            return "{\"message\":\"Deletion success\"}";
+        } catch (Exception e) {
+            throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping("/account")
+    public String getVarAccount(@RequestParam(value = "firstName", required = false) String firstName,
+                                @RequestParam(value = "lastName", required = false) String lastName) {
+        List<Account> accounts = service.getVarAccount(firstName, lastName);
+        return new Gson().toJson(accounts);
+    }
 }

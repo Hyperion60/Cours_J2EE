@@ -12,5 +12,7 @@ public interface IAccountService {
 
     Account getAccount(Integer pk) throws Exception;
     Account patchAccount(Account data, Integer pk) throws Exception;
-    // boolean deleteAccount(Integer pk) throws Exception;
+    boolean deleteAccount(Integer pk) throws Exception;
+
+    List<Account> getVarAccount(String firstName, String lastName);
 }
