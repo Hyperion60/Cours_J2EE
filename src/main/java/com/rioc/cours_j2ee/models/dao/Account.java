@@ -20,9 +20,11 @@ public class Account implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
+
     public Account() {
-        this.firstName = "";
-        this.lastName = "";
     }
 
     public int getAccountId() {
@@ -47,5 +49,13 @@ public class Account implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
