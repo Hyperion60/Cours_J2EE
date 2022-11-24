@@ -1,7 +1,10 @@
 package com.rioc.cours_j2ee.services.account;
 
+import com.rioc.cours_j2ee.exceptions.ApiException;
 import com.rioc.cours_j2ee.models.dao.Account;
 import com.rioc.cours_j2ee.repositories.IAccountRepository;
+import com.rioc.cours_j2ee.services.address.AddressService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +14,13 @@ import java.util.Optional;
 @Service
 public class AccountService implements IAccountService {
     private IAccountRepository repository;
+    private AddressService addressService;
 
     public AccountService(IAccountRepository repository) {
         super();
         this.repository = repository;
+        this.addressService = new AddressService();
+
     }
 
     public Account postAccounts(Account account) throws Exception {
@@ -33,6 +39,15 @@ public class AccountService implements IAccountService {
         ).isEmpty()) {
             throw new Exception("User already exists");
         }
+        // Check Address
+        try {
+            addressService.checkAddress(account.getAddress().getAddressAddress(),
+                    account.getAddress().getAddressCity(),
+                    account.getAddress().getAddressCp());
+        } catch (Exception e) {
+            throw new ApiException(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+
         return repository.save(account);
     }
 
