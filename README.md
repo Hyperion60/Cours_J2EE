@@ -42,9 +42,34 @@ avec [ce lien](https://dev.mysql.com/downloads/installer/).
 
 Vous pouvez choisir *Server only* accélérer et alléger l'installation.
 
+1. Ouvrez le terminal mysql (depuis le menu Démarrer).
+2. Tapez la commande `CREATE DATABASE unilasalle;`
+
+Cela permet de créer la base de données nécessaire au fonctionnement de
+l'application.
+
 ## Importation du code
 
+Vous télécharger le code sur la
+[page Github](https://github.com/Hyperion60/Cours_J2EE) en téléchargeant un
+simple ZIP ou via Git avec le lien :
+`https://github.com/Hyperion60/Cours_J2EE.git`
 
+Une fois que l'IDE a fini d'importer, il vous demandera d'ajouter un SDK.
+Choisissez le **SDK 17**.
+
+Avant de tenter une execution, ouvrez l'onglet `Maven` à droite. Sélectionnez
+avec *Ctrl+Clic gauche* `clean` et `install`. Puis appuyez sur le triangle
+vert.
+
+![](img/maven.png)
+
+Si des tests échouent, appuyez sur le troisième bouton à droite du triangle
+et relancer avec le triangle.
+
+Vous pouvez maintenant lancer le code avec le triangle vert en haut.
+
+![](img/java.png)
 
 # Features core
 
